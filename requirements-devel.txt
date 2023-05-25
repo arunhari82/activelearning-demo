@@ -1,0 +1,6 @@
+-r active-learning-labelstudio-ml-backend/requirements.txt
+-r model-training/requirements.txt
+
+ipykernel
+black[jupyter]
+# jupyterlab
