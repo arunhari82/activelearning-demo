@@ -32,7 +32,7 @@ This is active learning demo using Label Studio and LabelStudio ML backend. This
 
 ## Active Learning Label Studio Backend
 
-   ### Active Learning LabelStudioML backend server
+   ### Local Active Learning LabelStudioML backend server :
    
         python3 -m venv env
         source env/bin/activate
