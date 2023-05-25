@@ -1,4 +1,4 @@
-model/
+model/model_inceptionV3_epoch5.h5
 model-training/Vegetable Images
 model-training/env
 active-learning-labelstudio-ml-backend/__pycache__

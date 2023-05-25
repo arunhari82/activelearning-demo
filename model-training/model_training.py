@@ -158,4 +158,4 @@ r = model.fit(
   validation_steps=len(test_set)
 )
 
-model.save('model_inceptionV3_epoch5.h5')
+model.save('model/model_inceptionV3_epoch5.h5')
