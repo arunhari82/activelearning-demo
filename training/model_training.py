@@ -3,22 +3,18 @@
 scratch = "../scratch/"
 
 # %%
-import numpy as np
 import os, random, pathlib, warnings, itertools, math, json
-import tensorflow as tf
-import tensorflow.keras.backend as K
+
+import numpy as np
+
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
+
 from PIL import Image
 from PIL import ImageEnhance
-from shutil import rmtree
 
-import boto3
-import botocore
-from botocore import UNSIGNED
-from botocore.client import Config
+import tensorflow as tf
+import tensorflow.keras.backend as K
 
 from tensorflow.keras import models
 from tensorflow.keras.models import Model
@@ -105,4 +101,4 @@ if not os.path.exists(path_to_model):
     print("Model: Saved")
 
 else:
-    print("Model: already exists")
+    print("Model: Already Exists")
