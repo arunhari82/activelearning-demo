@@ -1,9 +1,4 @@
 # %%
-# install dependencies
-%pip install -q -U pip
-%pip install -q -r requirements.txt
-
-# %%
 # setup parameters
 scratch = "../scratch/"
 
@@ -95,6 +90,7 @@ path_to_model = scratch + "model" + model_metadata + ".h5"
 
 # %%
 if not os.path.exists(path_to_model):
+    print("Model: Training...")
     r = model.fit(
         training_set,
         validation_data=test_set,
@@ -102,44 +98,11 @@ if not os.path.exists(path_to_model):
         steps_per_epoch=len(training_set),
         validation_steps=len(test_set),
     )
-    
+    print("Model: Trained")
+
+    print("Model: Saving...")
     model.save(path_to_model)
+    print("Model: Saved")
 
 else:
     print("Model: already exists")
-
-
-# %%
-K.clear_session()
-
-print("Model: Loading...")
-model = load_model(path_to_model)
-print("Model: Loaded")
-
-# %%
-category = {v: k for k, v in class_map.items()}
-print(json.dumps(category, indent=4))
-
-
-def predict_image(filename, model):
-    img_ = image.load_img(filename, target_size=(224, 224))
-    img_array = image.img_to_array(img_)
-    img_processed = np.expand_dims(img_array, axis=0)
-    img_processed /= 255.0
-
-    prediction = model.predict(img_processed)
-    index = np.argmax(prediction)
-
-    plt.title("Prediction - {}".format(category[index]))
-    plt.imshow(img_array)
-
-# %%
-predict_image(os.path.join(validation_folder, "Cauliflower/1064.jpg"), model)
-
-# %%
-predict_image(os.path.join(validation_folder, "Bitter_Gourd/1202.jpg"), model)
-
-# %%
-predict_image(os.path.join(validation_folder, "Papaya/1266.jpg"), model)
-
-
