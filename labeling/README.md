@@ -2,16 +2,17 @@
 
 Build and start Machine Learning backend on `http://localhost:9090`
 
-```bash
+```sh
 docker-compose up
 ```
 
 Check if it works:
 
-```bash
-$ curl http://localhost:9090/health
-{"status":"UP"}
+```sh
+curl http://localhost:9090/health
 ```
+
+`{"status":"UP"}`
 
 Then connect running backend to Label Studio using Machine Learning settings.
 
@@ -35,7 +36,7 @@ Then connect running backend to Label Studio using Machine Learning settings.
 
 4. Make sure you have docker & docker-compose installed on your system, then run
 
-    ```bash
+    ```sh
     docker-compose up --build
     ```
 

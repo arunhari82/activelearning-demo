@@ -6,4 +6,4 @@ pandas
 seaborn
 boto3
 matplotlib
-sklearn
+scikit-learn
