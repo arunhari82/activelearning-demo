@@ -1,5 +1,5 @@
--r active-learning-labelstudio-ml-backend/requirements.txt
--r model-training/requirements.txt
+-r retrain/requirements.txt
+-r model/requirements.txt
 
 ipykernel
 black[jupyter]

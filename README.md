@@ -19,7 +19,6 @@ Download Training Data from Kaggle references above and extract the data under m
 ### Training the model locally
 
 ```sh
-cd activelearning-demo/model-training
 python3 -m venv env
 source env/bin/activate
 pip install -r ./requirements.txt
@@ -29,14 +28,14 @@ python3 model_training.py
 ### Training the model with RHODS
 
 Use RHODS Project with MinIO Server and establish the data connection and launch Notebook.
-    
-    Open Notebook : model_training.ipynb
+
+Open Notebook : model_training.ipynb
 
 ## Active Learning Label Studio Backend
 
 ### Local Active Learning LabelStudioML backend server
 
-        python3 -m venv env
-        source env/bin/activate
-        pip install -r ./requirements.txt
-        label-studio-ml start active-learning-labelstudio-ml-backend
+```sh
+source env/bin/activate
+label-studio-ml start active-learning-labelstudio-ml-backend
+```
