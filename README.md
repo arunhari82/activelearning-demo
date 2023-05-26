@@ -1,6 +1,6 @@
 # Active Learning demo on Openshift
 
-This is active learning demo using Label Studio and LabelStudio ML backend. This demo trains a model for vegetable classfication and also model is actively trained from label studio.
+This is active learning demo using Label Studio and LabelStudio ML backend. This demo trains a model for vegetable classification and also model is actively trained from label studio.
 
 ## References
 
@@ -29,7 +29,7 @@ python3 model_training.py
 
 Use RHODS Project with MinIO Server and establish the data connection and launch Notebook.
 
-Open Notebook : model_training.ipynb
+Open Notebooks : [notebooks](notebooks)
 
 ## Active Learning Label Studio Backend
 
@@ -37,5 +37,5 @@ Open Notebook : model_training.ipynb
 
 ```sh
 source env/bin/activate
-label-studio-ml start active-learning-labelstudio-ml-backend
+label-studio-ml start retrain
 ```
