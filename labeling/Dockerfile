@@ -4,12 +4,14 @@ ENV PYTHONUNBUFFERED=True \
     PORT=9090
 
 WORKDIR /app
-COPY . ./
 
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-USER 1001
+COPY . ./
+
+# USER 1001
 
 EXPOSE 9090
 
-CMD exec gunicorn --preload --bind :$PORT --workers 1 --threads 8 --timeout 0 wsgi:app
+CMD exec gunicorn --preload --bind :$PORT --workers 1 --threads 8 --timeout 0 _wsgi:app

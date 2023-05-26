@@ -106,7 +106,7 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             self.model.load_weights(self.train_output["model_file"])
 
     def loadmodel_from_local_file(self):
-        path_to_model = os.environ.get("MODEL_PATH", "../scratch/model_inceptionV3_epoch5.h5"
+        path_to_model = os.environ.get("MODEL_PATH", "/data/model.h5")
         print("Loading the model..")
         model = load_model(path_to_model)
         print("Done!")

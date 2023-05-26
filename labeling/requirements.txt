@@ -10,6 +10,7 @@ matplotlib
 seaborn
 pandas
 boto3
+psycopg2-binary
 
 # https://developer.apple.com/metal/tensorflow-plugin/
 tensorflow~=2.12.0; sys_platform != 'darwin'
