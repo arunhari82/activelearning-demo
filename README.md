@@ -21,7 +21,7 @@ Download Training Data from Kaggle references above and extract the data under m
 ```sh
 python3 -m venv venv
 source venv/bin/activate
-pip install -r ./requirements.txt
+pip install -r requirements-devel.txt
 python3 model_training.py
 ```
 
