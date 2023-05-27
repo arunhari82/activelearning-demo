@@ -1,5 +1,8 @@
 FROM python:3.8-slim
 
+ENV PYTHONUNBUFFERED=True \
+    PORT=9090
+
 WORKDIR /app
 
 COPY requirements.txt ./
@@ -9,10 +12,6 @@ COPY . ./
 
 # USER 1001
 
-ENV LABEL_STUDIO_BASE_DATA_DIR=/data
+EXPOSE 9090
 
-VOLUME /data
-
-EXPOSE 8080
-
-CMD label-studio
+CMD python _wsgi.py

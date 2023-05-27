@@ -113,7 +113,7 @@ if __name__ == "__main__":
         kwargs.update(parse_kwargs())
 
     if args.check:
-        print('Check "' + ActiveVegetableClassifier.__name__ + '" instance creation..')
+        print('Check "' + ActiveVegetableClassifier.__name__ + '" instance creation...')
         model = ActiveVegetableClassifier(**kwargs)
 
     app = init_app(

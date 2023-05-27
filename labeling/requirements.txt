@@ -1,18 +1,1 @@
-Jinja2==3.0.3
-gunicorn==20.1.0
-itsdangerous==2.0.1
-label-studio-ml==1.0.8
-rq==1.10.1
-tensorflow_hub
-werkzeug==2.0.2
-scikit-learn==1.2.2
-matplotlib
-seaborn
-pandas
-boto3
-psycopg2-binary
-
-# https://developer.apple.com/metal/tensorflow-plugin/
-tensorflow~=2.12.0; sys_platform != 'darwin'
-tensorflow-macos~=2.12.0; sys_platform == 'darwin'
-tensorflow-metal~=0.8.0; sys_platform == 'darwin'
+label-studio

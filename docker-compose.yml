@@ -2,28 +2,41 @@ version: "3"
 
 services:
   redis:
-    image: redis:alpine
+    image: docker.io/redis:alpine
     container_name: redis
     hostname: redis
-    # volumes:
-    #   - "./scratch/data/redis:/data"
     expose:
       - 6379
-  label-studio:
+  labeling:
     container_name: labeling
-    build: labeling
+    image: docker.io/heartexlabs/label-studio:latest
+    environment:
+      - LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
+      - LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/dataset
+      - LABEL_STUDIO_USE_REDIS=true
+    ports:
+      - 8080:8080
+    depends_on:
+      - serving
+    links:
+      - serving
+    volumes:
+      - "./scratch/data/server:/data"
+      - "./scratch:/dataset"
+  serving:
+    container_name: serving
+    build: serving
     environment:
       - MODEL_DIR=/data/models
       - RQ_QUEUE_NAME=default
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - LABEL_STUDIO_USE_REDIS=true
-    ports:
-      - 9090:9090
+    expose:
+      - 9090
     depends_on:
       - redis
     links:
       - redis
     volumes:
       - "./scratch/data/server:/data"
-      - "./scratch/logs:/tmp"

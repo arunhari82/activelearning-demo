@@ -1,6 +1,7 @@
 -r labeling/requirements.txt
--r model-training/requirements.txt
 -r notebooks/requirements.txt
+-r serving/requirements.txt
+-r training/requirements.txt
 
 ipykernel
 black[jupyter]

@@ -37,5 +37,5 @@ Open Notebooks : [notebooks](notebooks)
 
 ```sh
 source env/bin/activate
-label-studio-ml start retrain
+label-studio-ml start serving
 ```
