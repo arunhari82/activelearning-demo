@@ -1,19 +1,23 @@
-from label_studio_ml.model import LabelStudioMLBase
-import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
 import os
 import logging
 
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 import numpy as np
 
+from PIL import Image
+from label_studio_ml.model import LabelStudioMLBase
 from label_studio_ml.utils import get_image_local_path, get_single_tag_keys, get_choice
 
+logger = logging.getLogger(__name__)
 
 class ActiveVegetableClassifier(LabelStudioMLBase):
+
     def __init__(self, trainable=False, batch_size=32, epochs=3, **kwargs):
         super(ActiveVegetableClassifier, self).__init__(**kwargs)
 
+        self.image_width, self.image_height = 224, 224
         self.trainable = trainable
         self.batch_size = batch_size
         self.epochs = epochs
@@ -60,25 +64,17 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             }
         }
 
-        self.image_width, self.image_height = 224, 224
         (
             self.from_name,
             self.to_name,
             self.value,
             self.labels_in_config,
         ) = get_single_tag_keys(self.parsed_label_config, "Choices", "Image")
+
+
         self.labels = tf.convert_to_tensor(sorted(self.labels_in_config))
 
         num_classes = len(self.labels_in_config)
-
-        if not self.train_output:
-            self.model = self.loadmodel_from_local_file()
-        else:
-            model_file = self.train_output["model_file"]
-            logger.info("Restore model from " + model_file)
-            # Restore previously saved weights
-            self.labels = self.train_output["labels"]
-            self.model.load_weights(self.train_output["model_file"])
 
         self.category = {
             0: "Bean",
@@ -98,18 +94,21 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             14: "Tomato",
         }
 
-        print(f"Self.train_output : ", self.train_output)
+        if not self.model:
+            self.model = self.load_model_from_local_file()
+        
         if self.train_output:
             model_file = self.train_output["model_file"]
-            print("Restore model from " + model_file)
+            logger.info("Restore model from " + model_file)
             # Restore previously saved weights
+            self.labels = self.train_output["labels"]
             self.model.load_weights(self.train_output["model_file"])
 
-    def loadmodel_from_local_file(self):
-        path_to_model = os.environ.get("MODEL_PATH", "/data/model.h5")
-        print("Loading the model..")
+    def load_model_from_local_file(self):
+        path_to_model = os.environ.get("MODEL_PATH", "/data/models/model.h5")
+        print("Model: Loading...")
         model = load_model(path_to_model)
-        print("Done!")
+        print("Model: Loaded")
         return model
 
     def predict(self, tasks, **kwargs):
