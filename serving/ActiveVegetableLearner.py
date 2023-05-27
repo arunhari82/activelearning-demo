@@ -93,9 +93,6 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             13: "Radish",
             14: "Tomato",
         }
-
-        if not self.model:
-            self.model = self.load_model_from_local_file()
         
         if self.train_output:
             model_file = self.train_output["model_file"]
@@ -103,6 +100,8 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             # Restore previously saved weights
             self.labels = self.train_output["labels"]
             self.model.load_weights(self.train_output["model_file"])
+
+        print(kwargs)
 
     def load_model_from_local_file(self):
         path_to_model = os.environ.get("MODEL_PATH", "/data/models/model.h5")
@@ -112,11 +111,15 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
         return model
 
     def predict(self, tasks, **kwargs):
-        print(self)
+        try:
+            self.model.summary()
+        except:
+            self.model = self.load_model_from_local_file()
+
         predictions = []
         # Get annotation tag first, and extract from_name/to_name keys from the labeling config to make predictions
         for task in tasks:
-            image_path = get_image_local_path(tasks[0]["data"]["image"])
+            image_path = get_image_local_path(task["data"]["image"])
             print(image_path)
             img_ = image.load_img(image_path, target_size=(224, 224))
             img_array = image.img_to_array(img_)
@@ -125,6 +128,7 @@ class ActiveVegetableClassifier(LabelStudioMLBase):
             prediction = self.model.predict(img_processed)
             index = np.argmax(prediction)
             predicted_value = self.category[index]
+            print(predicted_value)
             # for each task, return classification results in the form of "choices" pre-annotations
             predictions.append(
                 {

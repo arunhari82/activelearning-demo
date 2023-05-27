@@ -16,6 +16,8 @@ services:
       - LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
       - LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/dataset
       - LABEL_STUDIO_USE_REDIS=true
+      - ML_TIMEOUT_HEALTH=30
+      - ML_TIMEOUT_SETUP=30
     ports:
       - 8080:8080
     depends_on:
