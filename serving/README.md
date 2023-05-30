@@ -2,26 +2,28 @@
 
 Build and start Machine Learning backend on `http://localhost:9090`
 
-```bash
+```sh
 docker-compose up
 ```
 
 Check if it works:
 
-```bash
-$ curl http://localhost:9090/health
-{"status":"UP"}
+```sh
+curl http://localhost:9090/health
 ```
 
-Then connect running backend to Label Studio using Machine Learning settings. 
+`{"status":"UP"}`
 
+Then connect running backend to Label Studio using Machine Learning settings.
 
 ## Writing your own model
+
 1. Place your scripts for model training & inference inside root directory. Follow the [API guidelines](#api-guidelines) described bellow. You can put everything in a single file, or create 2 separate one say `my_training_module.py` and `my_inference_module.py`
 
 2. Write down your python dependencies in `requirements.txt`
 
 3. Open `wsgi.py` and make your configurations under `init_model_server` arguments:
+
     ```python
     from my_training_module import training_script
     from my_inference_module import InferenceModel
@@ -33,14 +35,15 @@ Then connect running backend to Label Studio using Machine Learning settings.
     ```
 
 4. Make sure you have docker & docker-compose installed on your system, then run
-    ```bash
+
+    ```sh
     docker-compose up --build
     ```
-   
+
 ## API guidelines
 
-
 #### Inference module
+
 In order to create module for inference, you have to declare the following class:
 
 ```python
@@ -70,6 +73,7 @@ class MyModel(BaseModel):
 ```
 
 #### Training module
+
 Training could be made in a separate environment. The only one convention is that data iterator and working directory are specified as input arguments for training function which outputs JSON-serializable resources consumed later by `load()` function in inference module.
 
 ```python
